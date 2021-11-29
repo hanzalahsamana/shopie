@@ -68,7 +68,7 @@ export default function SignIn() {
             <View style={styles.btnContainer}>
 
                 <TouchableOpacity style={styles.btn} >
-                    <Text style={styles.btnText}>
+                    <Text style={styles.btnText} onPress={() => navigation.navigate("SellerDashboard")}>
                         Sign Up
                     </Text>
                 </TouchableOpacity>

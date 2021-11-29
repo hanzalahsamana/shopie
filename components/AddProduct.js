@@ -6,52 +6,27 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import AddImage from './ImagePicker';
 
 
 
-export default function SignUp() {
-const navigation = useNavigation();
+
+export default function AddProduct() {
+    const navigation = useNavigation();
 
     return (
         <View style={styles.container}>
-            <View style={styles.ImageContainer}>
-                <Image
-                    style={styles.Image}
-                    source={require('../assets/logo.png')}
-                    resizeMode="contain"
-                />
-            </View>
-
-
-            <Text style={styles.Headings}>Welcome to Shopie!</Text>
 
             <View style={styles.Form}>
                 <View style={styles.feilds}>
                     <Input
                         style={styles.input}
-                        placeholder='ENTER YOUR NAME'
+                        placeholder='ENTER PRODUCT TITLE'
                         leftIcon={
                             <Icon
                                 style={styles.icon}
 
-                                name='user'
-                                size={24}
-                                color='#08abf4'
-                            />
-
-                        }
-
-                    />
-                </View>
-                <View style={styles.feilds}>
-                    <Input
-                        style={styles.input}
-                        placeholder='ENTER YOUR EMAIL '
-                        leftIcon={
-                            <Icon
-                                style={styles.icon}
-
-                                name='envelope'
+                                name='text-width'
                                 size={16}
                                 color='#08abf4'
                             />
@@ -63,12 +38,29 @@ const navigation = useNavigation();
                 <View style={styles.feilds}>
                     <Input
                         style={styles.input}
-                        placeholder='ENTER YOUR PASSWORD'
+                        placeholder='ENTER PRODUCT DETAILS '
                         leftIcon={
                             <Icon
                                 style={styles.icon}
 
-                                name='lock'
+                                name='text-width'
+                                size={16}
+                                color='#08abf4'
+                            />
+
+                        }
+
+                    />
+                </View>
+                <View style={styles.feilds}>
+                    <Input
+                        style={styles.input}
+                        placeholder='ENTER PRODUCT PRICE'
+                        leftIcon={
+                            <Icon
+                                style={styles.icon}
+
+                                name='dollar'
                                 size={24}
                                 color='#08abf4'
                             />
@@ -79,18 +71,20 @@ const navigation = useNavigation();
                 </View>
 
             </View>
-            
+            <View style={styles.AddImage}>
+                <AddImage />
+            </View>
+
             <View style={styles.btnContainer}>
 
                 <TouchableOpacity style={styles.btn} >
                     <Text style={styles.btnText} onPress={() => navigation.navigate("SellerDashboard")}>
-                        Sign Up
+                        Add
                     </Text>
                 </TouchableOpacity>
 
             </View>
 
-            <Text style={styles.redirect}>Already have an account ? <Text style={styles.redirectLink} onPress={() => navigation.navigate("SignIn") }>Sign In</Text></Text>
         </View>
 
     );
@@ -102,7 +96,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-
+        width: "100%"
     },
     ImageContainer: {
         height: 100,
@@ -156,7 +150,7 @@ const styles = StyleSheet.create({
 
     btn: {
         flex: 1,
-        width: 300,
+        width: 100,
         backgroundColor: '#08abf4',
         height: 50,
         maxHeight: 50,
@@ -179,7 +173,12 @@ const styles = StyleSheet.create({
     },
     redirectLink: {
         color: "#08abf4"
+    },
+    AddImage:{
+        marginBottom:20
     }
 
 
 });
+
+
