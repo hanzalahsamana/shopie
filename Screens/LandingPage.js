@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 // const image = { uri: require('../assets/landing.jpg') };
 
-const LandingPage = () => (
+const LandingPage = ({navigation}) => (
     <ImageBackground source={require('../assets/landing.jpg')} resizeMode="cover" style={styles.image}>
 
         <View style={styles.container}>
@@ -18,16 +18,12 @@ const LandingPage = () => (
             <View style={styles.btnContainer}>
 
                 <TouchableOpacity style={styles.btn}>
-                    <Text style={styles.btnText}>
-                        Sell
-                    </Text>
+                    <Text style={styles.btnText}>Seller </Text>
                 </TouchableOpacity>
 
 
-                <TouchableOpacity style={styles.btn} >
-                    <Text style={styles.btnText}>
-                        Buy
-                    </Text>
+                <TouchableOpacity onPress={() => navigation.navigate("Buyer")} style={styles.btn} >
+                    <Text style={styles.btnText} > Buyer</Text>
                 </TouchableOpacity>
 
             </View>
