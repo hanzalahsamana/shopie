@@ -7,6 +7,7 @@ import LandingPage from './Screens/LandingPage';
 import { NavigationContainer } from '@react-navigation/native';
 import SignUp from './Screens/SignUp';
 import SignIn from './Screens/SignIn';
+import SellerDashboard from './Screens/SellerDashboard';
 
 
 const Stack = createStackNavigator();
@@ -29,6 +30,13 @@ export default function App() {
 
         />
         <Stack.Screen name="SignIn" component={SignIn}
+          options={{
+            headerShown: false
+          }}
+
+        />
+
+        <Stack.Screen name="SellerDashboard" component={SellerDashboard}
           options={{
             headerShown: false
           }}
