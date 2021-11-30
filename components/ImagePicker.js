@@ -36,8 +36,8 @@ export default function AddImage() {
     <View >
       <View style={styles.btnContainer}>
 
-        <TouchableOpacity style={styles.btn} >
-          <Text style={styles.btnText} onPress={pickImage}>
+        <TouchableOpacity style={styles.btn} onPress={pickImage}>
+          <Text style={styles.btnText} >
             ADD IMAGE
           </Text>
         </TouchableOpacity>

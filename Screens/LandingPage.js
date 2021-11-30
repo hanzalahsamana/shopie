@@ -1,11 +1,37 @@
 import React from "react";
-import { ImageBackground, StyleSheet, Text, View, Image } from "react-native";
+import { ImageBackground, StyleSheet, Text, View, Image , BackHandler } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
+import { useEffect } from "react";
+import firebase from "firebase";
 import { useNavigation } from '@react-navigation/native';
 // const image = { uri: require('../assets/landing.jpg') };
 
 function LandingPage() {
+
+    const CheckUser = () => {
+        firebase.auth().onAuthStateChanged((user) => {
+            console.log('awdaerwqr',user)
+            if (user) {
+                navigation.navigate("SellerDashboard")
+      
+              
+              // ...
+            } else {
+      
+              // User is signed out
+              // ...
+            }
+          });
+    }
+    useEffect(() => {
+        CheckUser()
+      },[]);
+
+      useEffect(() => {
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true)
+        return () => backHandler.remove()
+      },[]);
+        
     const navigation = useNavigation();
 
     return(

@@ -5,10 +5,64 @@ import { View, Text, StyleSheet, Pressable, TouchableOpacity, SafeAreaView, Scro
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-
+import { useState } from 'react';
+import firebase from "firebase"
 
 
 export default function SignUp() {
+
+    const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
+    const [password, setPassword] = useState('');
+    const register = (e) => {
+
+        console.log('email', email)
+        console.log('password', password)
+
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                // Signed in 
+                var user = userCredential.user;
+                 navigation.navigate("SellerDashboard")
+                console.log("auth done")
+
+                user.updateProfile({
+                    displayName: name
+      
+                  }).then(() => {
+                    // Update successful
+                    console.log("profile updated")
+                    // ...
+                  }).catch((error) => {
+                    // An error occurred
+                    // ...
+                  });
+
+
+                firebase.firestore().collection(`users`).doc(user.uid).set({
+                    name,
+                    email,
+                    userUID: user.uid
+                })
+                    .then(() => {
+                        console.log("Document successfully written!");
+                    })
+                    .catch((error) => {
+                        console.error("Error writing document: ", error);
+                    });
+
+            }).catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // ..
+            });
+
+
+            setEmail('');
+            setName('');
+            setPassword('')
+        e.preventDefault();
+    }
     const navigation = useNavigation();
 
     return (
@@ -33,6 +87,9 @@ export default function SignUp() {
                             <Input
                                 style={styles.input}
                                 placeholder='ENTER YOUR NAME'
+                                value={name}
+                                onChangeText={(text)=> setName(text)}
+                
                                 leftIcon={
                                     <Icon
                                         style={styles.icon}
@@ -50,6 +107,9 @@ export default function SignUp() {
                             <Input
                                 style={styles.input}
                                 placeholder='ENTER YOUR EMAIL '
+                                value={email}
+                                onChangeText={(text)=> setEmail(text)}
+                
                                 leftIcon={
                                     <Icon
                                         style={styles.icon}
@@ -67,6 +127,10 @@ export default function SignUp() {
                             <Input
                                 style={styles.input}
                                 placeholder='ENTER YOUR PASSWORD'
+                                value={password}
+                                onChangeText={(text)=> setPassword(text)}
+
+                
                                 leftIcon={
                                     <Icon
                                         style={styles.icon}
@@ -85,7 +149,7 @@ export default function SignUp() {
 
                     <View style={styles.btnContainer}>
 
-                        <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate("SellerDashboard")}>
+                        <TouchableOpacity style={styles.btn} onPress={register}>
                             <Text style={styles.btnText}>
                                 Sign Up
                             </Text>
@@ -96,6 +160,7 @@ export default function SignUp() {
                     <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'center', minHeight: 40, height: 40 }}>
                         <Text style={styles.redirect}>Already have an account?</Text>
                         <Pressable style={{ height: '100%', justifyContent: 'center', marginLeft: 5 }} onPress={() => navigation.navigate("SignIn")}>
+                        
                             <Text style={styles.redirectLink}>Sign In</Text>
                         </Pressable>
                     </View>
