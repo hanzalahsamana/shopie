@@ -8,7 +8,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 
 
-const ShopProfile = (props) => {
+const StoreProducts = (props) => {
     const navigation = useNavigation();
     const [name, setName] = useState("")
     const [uid, setUid] = useState("")
@@ -86,33 +86,13 @@ const ShopProfile = (props) => {
             description: "best quality in the world"
         },
     ]
-    const profile = props.profile;
 
-    const LogOut = () => {
-
-        firebase.auth().signOut().then(() => {
-            // Sign-out successful.
-            navigation.navigate("SignIn")
-
-        }).catch((error) => {
-            // An error happened.
-            console.log("erroe", error)
-        });
-    }
+   
 
     return (
-        <SafeAreaView>
             <ScrollView>
                 <View style={styles.header}>
                     <Text style={styles.text}>{name}</Text>
-                   
-                        <Button mode="outlined" onPress={LogOut} color="tomato" style={{ borderColor: "tomato" }}>
-                            Log Out
-                        </Button>
-
-                        
-
-
                 </View>
 
 
@@ -131,7 +111,10 @@ const ShopProfile = (props) => {
                                         <Paragraph style={styles.description}>{item.description}</Paragraph>
                                     </Card.Content>
 
-                                  
+
+                                        <Card.Actions >
+                                            <Button color="#08abf4" >Buy now</Button>
+                                        </Card.Actions>
                                 </Card>
                             )
                         })
@@ -139,10 +122,10 @@ const ShopProfile = (props) => {
 
                 </View>
             </ScrollView>
-        </SafeAreaView>
+      
     );
 }
-export default ShopProfile;
+export default StoreProducts;
 
 const styles = StyleSheet.create({
     header: {

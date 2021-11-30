@@ -63,7 +63,7 @@ const Cards = ({ }) => {
                                     <Title style={{textTransform:"uppercase" , fontSize:15}}>{item.title}</Title>
                                 </Card.Content>
                                 <Card.Actions style={styles.centre}>
-                                    <Button color="#08abf4" onPress={() => navigation.navigate("ShopProfile")}>Shop Now</Button>
+                                    <Button color="#08abf4" onPress={() => navigation.navigate("StoreProducts")}>Shop Now</Button>
                                 </Card.Actions>
                             </Card>
                         )

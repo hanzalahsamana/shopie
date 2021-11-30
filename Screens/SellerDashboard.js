@@ -1,54 +1,63 @@
 import * as React from 'react';
-import { BackHandler, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { BackHandler, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AddProduct from '../components/AddProduct';
 import ShopProfile from './profileshop';
+import {useEffect} from 'react'
 import { Icon } from 'react-native-elements';
+
 
 function HomeScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <AddProduct />
-    </View>
+    <View >
+    <ShopProfile profile = {true} 
+
+       
+    />
+  </View>
   );
 }
 
-function SettingsScreen() {
+function AddScreen() {
   return (
-    <View >
-      <ShopProfile profile = {true} 
-
-         
-      />
-    </View>
+   
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <AddProduct />
+  </View>
   );
 }
 
 const Tab = createBottomTabNavigator();
 
 export default function SellerDashboard() {
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true)
+    return () => backHandler.remove()
+  },[]);
+
   return (
    
       <Tab.Navigator>
-        <Tab.Screen name="Add Product" component={HomeScreen}
+        <Tab.Screen name="Your Product" component={HomeScreen}
         
         options={{  
+          headerShown: false,
+
           tabBarIcon: () => (
             <Icon
-              name='add'
+              name='home'
               color="#08abf4"
               size={28}
             />
           )
         }}
         />
-        <Tab.Screen name="Your Product" component={SettingsScreen} 
+        <Tab.Screen name="Add Product" component={AddScreen} 
             options={{
-              headerShown: false,
               tabBarIcon: () => (
                 <Icon
-                  name='home'
+                  name='add'
                   color="#08abf4"
                   size={28}
                 />

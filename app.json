@@ -1,6 +1,12 @@
 {
   "expo": {
     "name": "shopie",
+    "icon": "./assets/logo.png",
+    "splash": {
+      "image": "./assets/logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#08abf4"
+    },
     "slug": "shopie",
     "version": "1.0.0",
     "assetBundlePatterns": [

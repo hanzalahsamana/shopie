@@ -1,5 +1,5 @@
 import React from "react";
-import { ImageBackground, StyleSheet, Text, View, Image , BackHandler } from "react-native";
+import { ImageBackground, StyleSheet, Text, View, Image  } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useEffect } from "react";
 import firebase from "firebase";
@@ -14,7 +14,7 @@ function LandingPage() {
             if (user) {
                 navigation.navigate("SellerDashboard")
       
-              
+
               // ...
             } else {
       
@@ -26,11 +26,9 @@ function LandingPage() {
     useEffect(() => {
         CheckUser()
       },[]);
+      
+ 
 
-      useEffect(() => {
-        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true)
-        return () => backHandler.remove()
-      },[]);
         
     const navigation = useNavigation();
 
