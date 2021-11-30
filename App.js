@@ -16,8 +16,12 @@ export default function App() {
     <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen name="landingPage" component={LandingPage}options={{headerShown:false}}/>
-      <Stack.Screen name="Buyer" component={Buyer} />
-      <Stack.Screen name="ShopProfile" component={ShopProfile} />
+      <Stack.Screen name="ShopNow" component={Buyer} />
+      <Stack.Screen name="ShopProfile" component={ShopProfile} 
+       options={{
+        headerShown: false
+      }}
+      />
     </Stack.Navigator>
 
     </NavigationContainer>

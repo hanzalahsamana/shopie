@@ -2,9 +2,6 @@ import React from "react";
 import { ImageBackground, StyleSheet, Text, View, Image } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-
-// const image = { uri: require('../assets/landing.jpg') };
-
 const LandingPage = ({navigation}) => (
     <ImageBackground source={require('../assets/landing.jpg')} resizeMode="cover" style={styles.image}>
 
@@ -22,7 +19,7 @@ const LandingPage = ({navigation}) => (
                 </TouchableOpacity>
 
 
-                <TouchableOpacity onPress={() => navigation.navigate("Buyer")} style={styles.btn} >
+                <TouchableOpacity onPress={() => navigation.navigate("ShopNow")} style={styles.btn} >
                     <Text style={styles.btnText} > Buyer</Text>
                 </TouchableOpacity>
 
