@@ -17,8 +17,31 @@ const ShopProfile = () => {
             <View style={styles.header}>
                 <Text style={styles.text}>Header</Text>
             </View>
-            <Cards/>
-            <Cards/>
+            <View style={styles.container}>
+                <Card style={styles.picture}>
+                    <Card.Cover style={styles.cardimage} source={{ uri: 'https://i.picsum.photos/id/558/700/700.jpg?hmac=9BsnzhVewVpZGiQgZOEmypsxcAA6duN_vFlZWaLN1I4' }} />
+                    <Card.Content >
+                        <Title>Watch</Title>
+                        <Paragraph>Desciption ha ye..</Paragraph>
+                        <Paragraph>10$</Paragraph>
+                    </Card.Content>
+                    <Card.Actions >
+                        <Button onPress={() => navigation.navigate("ShopProfile")}>Buy Now</Button>
+                    </Card.Actions>
+                </Card>
+
+                <Card style={styles.picture}>
+                    <Card.Cover style={styles.cardimage} source={{ uri: 'https://i.picsum.photos/id/558/700/700.jpg?hmac=9BsnzhVewVpZGiQgZOEmypsxcAA6duN_vFlZWaLN1I4' }} />
+                    <Card.Content >
+                        <Title>Cups</Title>
+                        <Paragraph>Desciption ha ye..</Paragraph>
+                        <Paragraph>10$</Paragraph>
+                    </Card.Content>
+                    <Card.Actions >
+                        <Button onPress={() => navigation.navigate("ShopProfile")}>Buy Now</Button>
+                    </Card.Actions>
+                </Card>
+            </View>
         </>
     );
 }
@@ -26,14 +49,14 @@ export default ShopProfile;
 
 const styles = StyleSheet.create({
     header: {
-        width:'100%',
-        justifyContent:'center',
+        width: '100%',
+        justifyContent: 'center',
         backgroundColor: '#2a9df4',
-        alignItems:'center',
+        alignItems: 'center',
         height: 50,
     },
     text: {
-        justifyContent:'center',
+        justifyContent: 'center',
         color: 'white',
         fontSize: 25,
     },
