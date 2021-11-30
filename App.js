@@ -8,7 +8,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import SignUp from './Screens/SignUp';
 import SignIn from './Screens/SignIn';
 import SellerDashboard from './Screens/SellerDashboard';
-
+import Buyer from './Screens/Buyer';
+import ShopProfile from './Screens/profileshop';
 
 const Stack = createStackNavigator();
 
@@ -42,6 +43,12 @@ export default function App() {
           }}
 
         />
+         <Stack.Screen name="ShopNow" component={Buyer} />
+      <Stack.Screen name="ShopProfile" component={ShopProfile} 
+       options={{
+        headerShown: false
+      }}
+      />
 
       </Stack.Navigator>
     </NavigationContainer>

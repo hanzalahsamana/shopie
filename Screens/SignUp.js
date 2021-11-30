@@ -1,97 +1,107 @@
 
 import React from 'react';
-import { Image } from 'react-native';
-import { View, Text, StyleSheet } from 'react-native';
+import { Dimensions, Image } from 'react-native';
+import { View, Text, StyleSheet, Pressable, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
 
 
 export default function SignUp() {
-const navigation = useNavigation();
+    const navigation = useNavigation();
 
     return (
-        <View style={styles.container}>
-            <View style={styles.ImageContainer}>
-                <Image
-                    style={styles.Image}
-                    source={require('../assets/logo.png')}
-                    resizeMode="contain"
-                />
-            </View>
+        <SafeAreaView style={styles.container}>
+            <ScrollView
+                contentInsetAdjustmentBehavior="automatic"
+            >
+                <View style={styles.signupContainer}>
+                    <View style={styles.ImageContainer}>
+                        <Image
+                            style={styles.Image}
+                            source={require('../assets/logo.png')}
+                            resizeMode="contain"
+                        />
+                    </View>
 
 
-            <Text style={styles.Headings}>Welcome to Shopie!</Text>
+                    <Text style={styles.Headings}>Welcome to Shopie!</Text>
 
-            <View style={styles.Form}>
-                <View style={styles.feilds}>
-                    <Input
-                        style={styles.input}
-                        placeholder='ENTER YOUR NAME'
-                        leftIcon={
-                            <Icon
-                                style={styles.icon}
+                    <View style={styles.Form}>
+                        <View style={styles.feilds}>
+                            <Input
+                                style={styles.input}
+                                placeholder='ENTER YOUR NAME'
+                                leftIcon={
+                                    <Icon
+                                        style={styles.icon}
 
-                                name='user'
-                                size={24}
-                                color='#08abf4'
+                                        name='user'
+                                        size={24}
+                                        color='#08abf4'
+                                    />
+
+                                }
+
                             />
+                        </View>
+                        <View style={styles.feilds}>
+                            <Input
+                                style={styles.input}
+                                placeholder='ENTER YOUR EMAIL '
+                                leftIcon={
+                                    <Icon
+                                        style={styles.icon}
 
-                        }
+                                        name='envelope'
+                                        size={16}
+                                        color='#08abf4'
+                                    />
 
-                    />
-                </View>
-                <View style={styles.feilds}>
-                    <Input
-                        style={styles.input}
-                        placeholder='ENTER YOUR EMAIL '
-                        leftIcon={
-                            <Icon
-                                style={styles.icon}
+                                }
 
-                                name='envelope'
-                                size={16}
-                                color='#08abf4'
                             />
+                        </View>
+                        <View style={styles.feilds}>
+                            <Input
+                                style={styles.input}
+                                placeholder='ENTER YOUR PASSWORD'
+                                leftIcon={
+                                    <Icon
+                                        style={styles.icon}
 
-                        }
+                                        name='lock'
+                                        size={24}
+                                        color='#08abf4'
+                                    />
 
-                    />
-                </View>
-                <View style={styles.feilds}>
-                    <Input
-                        style={styles.input}
-                        placeholder='ENTER YOUR PASSWORD'
-                        leftIcon={
-                            <Icon
-                                style={styles.icon}
+                                }
 
-                                name='lock'
-                                size={24}
-                                color='#08abf4'
                             />
+                        </View>
 
-                        }
+                    </View>
 
-                    />
+                    <View style={styles.btnContainer}>
+
+                        <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate("SellerDashboard")}>
+                            <Text style={styles.btnText}>
+                                Sign Up
+                            </Text>
+                        </TouchableOpacity>
+
+                    </View>
+
+                    <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'center', minHeight: 40, height: 40 }}>
+                        <Text style={styles.redirect}>Already have an account?</Text>
+                        <Pressable style={{ height: '100%', justifyContent: 'center', marginLeft: 5 }} onPress={() => navigation.navigate("SignIn")}>
+                            <Text style={styles.redirectLink}>Sign In</Text>
+                        </Pressable>
+                    </View>
                 </View>
-
-            </View>
-            
-            <View style={styles.btnContainer}>
-
-                <TouchableOpacity style={styles.btn} >
-                    <Text style={styles.btnText} onPress={() => navigation.navigate("SellerDashboard")}>
-                        Sign Up
-                    </Text>
-                </TouchableOpacity>
-
-            </View>
-
-            <Text style={styles.redirect}>Already have an account ? <Text style={styles.redirectLink} onPress={() => navigation.navigate("SignIn") }>Sign In</Text></Text>
-        </View>
+            </ScrollView>
+        </SafeAreaView >
 
     );
 }
@@ -103,6 +113,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
 
+    },
+    signupContainer: {
+        // backgroundColor: 'black',
+        height: Dimensions.get('window').height / 1,
+        justifyContent: 'center'
     },
     ImageContainer: {
         height: 100,
@@ -119,12 +134,17 @@ const styles = StyleSheet.create({
         color: "#08abf4",
         fontSize: 20,
         lineHeight: 50,
-        marginBottom: 20
+        alignSelf: 'center'
+        // marginBottom: 20,
+
     },
 
     Form: {
         width: "100%",
-        height: 200,
+        // height: 200,
+        paddingTop: 10,
+        paddingBottom: 10,
+        // backgroundColor: 'red',
         alignItems: "center",
         justifyContent: "center",
 
@@ -152,6 +172,7 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         maxHeight: 80,
+        height: 80,
     },
 
     btn: {

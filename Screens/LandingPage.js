@@ -34,7 +34,7 @@ function LandingPage() {
                 </TouchableOpacity>
 
 
-                <TouchableOpacity style={styles.btn} >
+                <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate("ShopNow") } >
                     <Text style={styles.btnText}>
                         Buy
                     </Text>
