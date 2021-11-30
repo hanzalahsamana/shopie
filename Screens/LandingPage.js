@@ -2,33 +2,51 @@ import React from "react";
 import { ImageBackground, StyleSheet, Text, View, Image } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const LandingPage = ({navigation}) => (
-    <ImageBackground source={require('../assets/landing.jpg')} resizeMode="cover" style={styles.image}>
+import { useNavigation } from '@react-navigation/native';
+// const image = { uri: require('../assets/landing.jpg') };
+
+function LandingPage() {
+    const navigation = useNavigation();
+
+    return(
+        <ImageBackground source={require('../assets/landing.jpg')} resizeMode="cover" style={styles.image}>
 
         <View style={styles.container}>
-           
 
-            <Text style={styles.heading}>Welcome Shopie!</Text>
+        <View style={styles.ImageContainer}>
+                <Image
+                    style={styles.LogoImage}
+                    source={require('../assets/logo.png')}
+                    resizeMode="contain"
+                />
+            </View>
+
+            <Text style={styles.heading}>Welcome to Shopie!</Text>
 
             <Text style={styles.text}>Order your fav items</Text>
 
             <View style={styles.btnContainer}>
-
-                <TouchableOpacity style={styles.btn}>
-                    <Text style={styles.btnText}>Seller </Text>
+               
+                <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate("SignUp") }>
+                    <Text style={styles.btnText}>
+                        Sell
+                    </Text>
                 </TouchableOpacity>
 
 
-                <TouchableOpacity onPress={() => navigation.navigate("ShopNow")} style={styles.btn} >
-                    <Text style={styles.btnText} > Buyer</Text>
+                <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate("ShopNow") } >
+                    <Text style={styles.btnText}>
+                        Buy
+                    </Text>
                 </TouchableOpacity>
 
             </View>
 
         </View>
     </ImageBackground>
-
-);
+    )
+}
+    
 
 const styles = StyleSheet.create({
     container: {
@@ -39,11 +57,23 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         width: "100%",
     },
+    ImageContainer:{
+        height: 70,
+        width:"100%"
+        
+    },
+    LogoImage:{
+        height:"100%",
+        width:"100%",
+        borderRadius: 20
+        
+    },
     heading: {
         color: "white",
-        fontSize: 42,
+        fontSize: 35,
         fontWeight: "bold",
         textAlign: "center",
+        marginTop: 20
 
     },
     text: {
@@ -61,7 +91,7 @@ const styles = StyleSheet.create({
     btn: {
         flex: 1,
         width: 300,
-        backgroundColor: '#4169E1',
+        backgroundColor: '#08abf4',
         height: 50,
         maxHeight: 50,
         lineHeight: 20,
