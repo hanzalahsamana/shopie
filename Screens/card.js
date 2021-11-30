@@ -60,10 +60,10 @@ const Cards = ({ }) => {
                             <Card style={styles.picture} key={Index}>
                                 <Card.Cover style={styles.cardimage} source={{uri: item.image}} />
                                 <Card.Content style={styles.centre}>
-                                    <Title>{item.title}</Title>
+                                    <Title style={{textTransform:"uppercase" , fontSize:15}}>{item.title}</Title>
                                 </Card.Content>
                                 <Card.Actions style={styles.centre}>
-                                    <Button color="#4169E1" onPress={() => navigation.navigate("ShopProfile")}>Sell</Button>
+                                    <Button color="#08abf4" onPress={() => navigation.navigate("ShopProfile")}>Shop Now</Button>
                                 </Card.Actions>
                             </Card>
                         )

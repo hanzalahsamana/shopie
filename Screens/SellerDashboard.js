@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
+import { BackHandler, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AddProduct from '../components/AddProduct';
+import ShopProfile from './profileshop';
+import { Icon } from 'react-native-elements';
 
 function HomeScreen() {
   return (
@@ -14,8 +16,11 @@ function HomeScreen() {
 
 function SettingsScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Your Product!</Text>
+    <View >
+      <ShopProfile profile = {true} 
+
+         
+      />
     </View>
   );
 }
@@ -26,8 +31,30 @@ export default function SellerDashboard() {
   return (
    
       <Tab.Navigator>
-        <Tab.Screen name="Add Product" component={HomeScreen} />
-        <Tab.Screen name="Your Product" component={SettingsScreen} />
+        <Tab.Screen name="Add Product" component={HomeScreen}
+        
+        options={{  
+          tabBarIcon: () => (
+            <Icon
+              name='add'
+              color="#08abf4"
+              size={28}
+            />
+          )
+        }}
+        />
+        <Tab.Screen name="Your Product" component={SettingsScreen} 
+            options={{
+              headerShown: false,
+              tabBarIcon: () => (
+                <Icon
+                  name='home'
+                  color="#08abf4"
+                  size={28}
+                />
+              )
+            }}
+        />
       </Tab.Navigator>
  
   );
