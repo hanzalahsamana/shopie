@@ -4,125 +4,71 @@ import { StyleSheet, Text, View } from "react-native";
 import { ScrollView } from 'react-native-gesture-handler';
 import { Card, Title, Paragraph, Button } from 'react-native-paper';
 import firebase from 'firebase';
-import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { useNavigation } from '@react-navigation/native';
 
 
 const StoreProducts = (props) => {
-    const navigation = useNavigation();
-    const [name, setName] = useState("")
-    const [uid, setUid] = useState("")
+    const { userUid , name} = props.route.params
+    console.log('params', userUid);
+    const [products, setProducts] = useState([])
 
+    const getDate = () => {
+   if(userUid){
+    console.log('user uid', userUid)
+    firebase.firestore().collection('users').doc(userUid).collection('products').onSnapshot((querySnapshot) => {
+        setProducts([]);
+        querySnapshot.forEach((doc) => {
+            setProducts(products => [...products, doc.data()]);
 
-    const CheckUser = () => {
-        firebase.auth().onAuthStateChanged((user) => {
-            console.log ( user)
-            if (user) {
+            // products.push(doc.data())
+            console.log(doc.data)
+            console.log("products", products)
 
-                setUid(user.uid)
-                setName(user.displayName)
-                console.log(name)
-                // ...
-            } else {
-
-                // User is signed out
-                // ...
-            }
         });
+    });
+   }
     }
+
+
     useEffect(() => {
-        CheckUser()
+        getDate()
     }, []);
 
-
-    const ShopCard = [
-        {
-            image: "https://images.unsplash.com/photo-1501612780327-45045538702b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YmFuZHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80",
-            title: "Diamond",
-            Price: "200",
-            description: "best quality in the world"
-
-        },
-        {
-            image: "https://images.pexels.com/photos/995301/pexels-photo-995301.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-            title: "Chase Up",
-            Price: "200",
-            description: "best quality in the world"
-        },
-        {
-            image: "https://images.unsplash.com/photo-1501612780327-45045538702b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YmFuZHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80",
-            title: "Imtiaz",
-            Price: "200",
-            description: "best quality in the world"
-        },
-        {
-            image: "https://images.pexels.com/photos/995301/pexels-photo-995301.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-            title: "Chase Up",
-            Price: "200",
-            description: "best quality in the world"
-        },
-        {
-            image: "https://images.unsplash.com/photo-1501612780327-45045538702b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YmFuZHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80",
-            title: "Diamond",
-            Price: "200",
-            description: "best quality in the world"
-        },
-        {
-            image: "https://images.pexels.com/photos/995301/pexels-photo-995301.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-            title: "Chase Up",
-            Price: "200",
-            description: "best quality in the world"
-        },
-        {
-            image: "https://images.unsplash.com/photo-1501612780327-45045538702b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YmFuZHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80",
-            title: "Imtiaz",
-            Price: "200",
-            description: "best quality in the world"
-        },
-        {
-            image: "https://images.pexels.com/photos/995301/pexels-photo-995301.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-            title: "Chase Up",
-            Price: "200",
-            description: "best quality in the world"
-        },
-    ]
-
-   
-
     return (
-            <ScrollView>
-                <View style={styles.header}>
-                    <Text style={styles.text}>{name}</Text>
-                </View>
+        <ScrollView>
+            <View style={styles.header}>
+                <Text style={styles.text}>{name}</Text>
+            </View>
 
 
-                <View style={styles.container}>
+            <View style={styles.container}>
 
-                    {
-                        ShopCard.map((item, Index) => {
-                            return (
-                                <Card style={styles.MainContainer} key={Index}>
-                                    <Card.Cover style={styles.cardimage} source={{ uri: item.image }} />
-                                    <Card.Content >
-                                        <View style={styles.TitleContainer}>
-                                            <Title style={styles.title}>{item.title}</Title>
-                                            <Paragraph style={styles.price}>${item.Price}</Paragraph>
-                                        </View>
-                                        <Paragraph style={styles.description}>{item.description}</Paragraph>
-                                    </Card.Content>
+                {
+                    products.map((item, Index) => {
+                        return (
+                            <Card style={styles.MainContainer} key={Index}>
+                                <Card.Cover style={styles.cardimage} source={{ uri: item.image }} />
+                                <Card.Content >
+                                    <View style={styles.TitleContainer}>
+                                        <Title style={styles.title}>{item.title}</Title>
+                                        <Paragraph style={styles.price}>${item.Price}</Paragraph>
+                                    </View>
+                                    <Paragraph style={styles.description}>{item.details}</Paragraph>
+                                </Card.Content>
 
 
-                                        <Card.Actions >
-                                            <Button color="#08abf4" >Buy now</Button>
-                                        </Card.Actions>
-                                </Card>
-                            )
-                        })
-                    }
+                                <Card.Actions >
+                                    <Button color="#08abf4" >Buy now</Button>
+                                </Card.Actions>
+                            </Card>
+                        )
+                    })
+                }
 
-                </View>
-            </ScrollView>
-      
+            </View>
+        </ScrollView>
+
     );
 }
 export default StoreProducts;

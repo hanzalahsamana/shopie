@@ -8,25 +8,26 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 
 
-const ShopProfile = (props) => {
+const ShopProfile = () => {
     const navigation = useNavigation();
     const [name, setName] = useState("")
     const [uid, setUid] = useState("")
+    const [products , setProducts] = useState([])
 
 
     const CheckUser = () => {
         firebase.auth().onAuthStateChanged((user) => {
-            console.log ( user)
+            console.log(user)
             if (user) {
 
                 setUid(user.uid)
                 setName(user.displayName)
+                getDate(user.uid)
                 console.log(name)
                 // ...
             } else {
 
-                // User is signed out
-                // ...
+    
             }
         });
     }
@@ -34,65 +35,27 @@ const ShopProfile = (props) => {
         CheckUser()
     }, []);
 
+    const getDate = (uid) => {
+        console.log('user uid', uid)
+          firebase.firestore().collection('users').doc(uid).collection('products').onSnapshot((querySnapshot) => {
+                 setProducts([]);
+                querySnapshot.forEach((doc) => {
+                    setProducts(products => [...products, doc.data()]);
 
-    const ShopCard = [
-        {
-            image: "https://images.unsplash.com/photo-1501612780327-45045538702b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YmFuZHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80",
-            title: "Diamond",
-            Price: "200",
-            description: "best quality in the world"
-
-        },
-        {
-            image: "https://images.pexels.com/photos/995301/pexels-photo-995301.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-            title: "Chase Up",
-            Price: "200",
-            description: "best quality in the world"
-        },
-        {
-            image: "https://images.unsplash.com/photo-1501612780327-45045538702b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YmFuZHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80",
-            title: "Imtiaz",
-            Price: "200",
-            description: "best quality in the world"
-        },
-        {
-            image: "https://images.pexels.com/photos/995301/pexels-photo-995301.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-            title: "Chase Up",
-            Price: "200",
-            description: "best quality in the world"
-        },
-        {
-            image: "https://images.unsplash.com/photo-1501612780327-45045538702b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YmFuZHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80",
-            title: "Diamond",
-            Price: "200",
-            description: "best quality in the world"
-        },
-        {
-            image: "https://images.pexels.com/photos/995301/pexels-photo-995301.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-            title: "Chase Up",
-            Price: "200",
-            description: "best quality in the world"
-        },
-        {
-            image: "https://images.unsplash.com/photo-1501612780327-45045538702b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YmFuZHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80",
-            title: "Imtiaz",
-            Price: "200",
-            description: "best quality in the world"
-        },
-        {
-            image: "https://images.pexels.com/photos/995301/pexels-photo-995301.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-            title: "Chase Up",
-            Price: "200",
-            description: "best quality in the world"
-        },
-    ]
-    const profile = props.profile;
+                // products.push(doc.data())
+                console.log(doc.data)
+                console.log("products" , products)
+                  
+            });
+        });
+    }
+ 
 
     const LogOut = () => {
 
         firebase.auth().signOut().then(() => {
             // Sign-out successful.
-            navigation.navigate("SignIn")
+            navigation.navigate("landingPage")
 
         }).catch((error) => {
             // An error happened.
@@ -105,12 +68,12 @@ const ShopProfile = (props) => {
             <ScrollView>
                 <View style={styles.header}>
                     <Text style={styles.text}>{name}</Text>
-                   
-                        <Button mode="outlined" onPress={LogOut} color="tomato" style={{ borderColor: "tomato" }}>
-                            Log Out
-                        </Button>
 
-                        
+                    <Button mode="outlined" onPress={LogOut} color="tomato" style={{ borderColor: "tomato" }}>
+                        Log Out
+                    </Button>
+
+
 
 
                 </View>
@@ -119,7 +82,7 @@ const ShopProfile = (props) => {
                 <View style={styles.container}>
 
                     {
-                        ShopCard.map((item, Index) => {
+                        products.map((item, Index) => {
                             return (
                                 <Card style={styles.MainContainer} key={Index}>
                                     <Card.Cover style={styles.cardimage} source={{ uri: item.image }} />
@@ -128,10 +91,10 @@ const ShopProfile = (props) => {
                                             <Title style={styles.title}>{item.title}</Title>
                                             <Paragraph style={styles.price}>${item.Price}</Paragraph>
                                         </View>
-                                        <Paragraph style={styles.description}>{item.description}</Paragraph>
+                                        <Paragraph style={styles.description}>{item.details}</Paragraph>
                                     </Card.Content>
 
-                                  
+
                                 </Card>
                             )
                         })

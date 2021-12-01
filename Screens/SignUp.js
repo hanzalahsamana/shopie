@@ -23,6 +23,7 @@ export default function SignUp() {
             .then((userCredential) => {
                 // Signed in 
                 var user = userCredential.user;
+                alert("Auth done")
                  navigation.navigate("SellerDashboard")
                 console.log("auth done")
 
@@ -35,6 +36,8 @@ export default function SignUp() {
                     // ...
                   }).catch((error) => {
                     // An error occurred
+                console.log("error"  ,  error)
+
                     // ...
                   });
 
