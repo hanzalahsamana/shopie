@@ -10,7 +10,7 @@ import firebase from 'firebase';
 import { useState } from 'react';
 
 
-export default function SignIn() {
+export default function BuyerSignIn() {
 
     const [email, setEmail] = useState('');
 
@@ -28,8 +28,10 @@ export default function SignIn() {
             .then((userCredential) => {
                 // Signed in 
                 var user = userCredential.user;
+                // alert('123456')
                 alert('Sign  In suucessfully!!')
-                navigation.navigate("SellerDashboard")
+
+                navigation.navigate("ShopNow")
 
                 console.log("auth done")
                 // ...
@@ -125,7 +127,7 @@ export default function SignIn() {
 
             </View>
 
-            <Text style={styles.redirect}>Don't have an account ? <Text style={styles.redirectLink} onPress={() => navigation.navigate("SignUp") }>Sign Up</Text></Text>
+            <Text style={styles.redirect}>Don't have an account ? <Text style={styles.redirectLink} onPress={() => navigation.navigate("BuyerSignUp") }>Sign Up</Text></Text>
         </View>
             </ScrollView>
         </SafeAreaView>

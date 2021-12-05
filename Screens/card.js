@@ -1,12 +1,12 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, View } from "react-native";
-import { Button, Card, Title } from 'react-native-paper';
+import { Button, Card, Title ,Text } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 
 const Cards = (props) => {
-    const { name, uid } = props;
+    const { name, uid , LogOut} = props;
     console.log('name', name)
     const navigation = useNavigation();
 
@@ -14,6 +14,7 @@ const Cards = (props) => {
 
         <SafeAreaView style={styles.container}>
             <ScrollView>
+    
                 <View >
                     <View>
                         <Card style={styles.picture}>
@@ -39,6 +40,21 @@ const Cards = (props) => {
 export default Cards;
 
 const styles = StyleSheet.create({
+    header: {
+        width: '100%',
+        justifyContent: 'center',
+        backgroundColor: '#08abf4',
+        alignItems: 'center',
+        height: 100,
+    },
+    text: {
+        justifyContent: 'center',
+        color: 'white',
+        fontSize: 30,
+        letterSpacing: 5,
+        textTransform: "uppercase"
+
+    },
 
     container: {
         flex: 1,
@@ -46,7 +62,6 @@ const styles = StyleSheet.create({
 
     },
     picture: {
-        width: 150,
         height: "auto",
         margin: 15,
     },

@@ -12,11 +12,12 @@ const StoreProducts = (props) => {
     const { userUid , name} = props.route.params
     console.log('params', userUid);
     const [products, setProducts] = useState([])
+    const navigation = useNavigation();
 
     const getDate = () => {
    if(userUid){
     console.log('user uid', userUid)
-    firebase.firestore().collection('users').doc(userUid).collection('products').onSnapshot((querySnapshot) => {
+    firebase.firestore().collection('seller').doc(userUid).collection('products').onSnapshot((querySnapshot) => {
         setProducts([]);
         querySnapshot.forEach((doc) => {
             setProducts(products => [...products, doc.data()]);
@@ -52,14 +53,14 @@ const StoreProducts = (props) => {
                                 <Card.Content >
                                     <View style={styles.TitleContainer}>
                                         <Title style={styles.title}>{item.title}</Title>
-                                        <Paragraph style={styles.price}>${item.Price}</Paragraph>
+                                        <Paragraph style={styles.price}>${item.price}</Paragraph>
                                     </View>
                                     <Paragraph style={styles.description}>{item.details}</Paragraph>
                                 </Card.Content>
 
 
                                 <Card.Actions >
-                                    <Button color="#08abf4" >Buy now</Button>
+                                    <Button color="#08abf4" onPress={() => navigation.navigate("OrderNow") }>Buy now</Button>
                                 </Card.Actions>
                             </Card>
                         )
