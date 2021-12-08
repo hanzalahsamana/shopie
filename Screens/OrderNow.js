@@ -1,22 +1,42 @@
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, SafeAreaView, ScrollView, Dimensions, Alert } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, Dimensions, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import firebase from 'firebase';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function OrderNow() {
-
 
     const [name, setName] = useState('');
     const [details, setDetails] = useState('');
     const [num, setNum] = useState('');
     const [address, setAddress] = useState('');
+    const [data, setData] = useState('');
 
     const navigation = useNavigation();
+
+    const getData = async () => {
+
+        try {
+          const jsonValue = await AsyncStorage.getItem('ProductData')
+          setData(JSON.parse(jsonValue))
+
+         
+        } catch(e) {
+          // error reading value
+        }
+
+      }
+      
+    useEffect(() => {
+        getData()
+        
+    }, []);
+
+    console.log("aya" , data)
 
     const Order = () => {
         if (name === " " || details === " " || num === " " || address === "") {
@@ -27,6 +47,13 @@ export default function OrderNow() {
                 details,
                 num,
                 address,
+                userUID: data?.userUID,
+                title: data?.title,
+                image: data?.image,
+                price: data?.price,
+                details: data?.details,
+                key: data?.productKey,
+
                 // userUID: uid
             })
                 .then(() => {

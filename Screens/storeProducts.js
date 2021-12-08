@@ -4,31 +4,46 @@ import { StyleSheet, Text, View } from "react-native";
 import { ScrollView } from 'react-native-gesture-handler';
 import { Card, Title, Paragraph, Button } from 'react-native-paper';
 import firebase from 'firebase';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
 
 const StoreProducts = (props) => {
-    const { userUid , name} = props.route.params
+
+    const storeData = async (value) => {
+        navigation.navigate("OrderNow")
+
+        try {
+            const jsonValue = JSON.stringify(value)
+            await AsyncStorage.setItem('ProductData', jsonValue)
+            console.log("ProductData", jsonValue)
+        } catch (e) {
+            console.log(e)
+            // saving error
+        }
+
+    }
+
+    const { userUid, name } = props.route.params
     console.log('params', userUid);
     const [products, setProducts] = useState([])
     const navigation = useNavigation();
 
     const getDate = () => {
-   if(userUid){
-    console.log('user uid', userUid)
-    firebase.firestore().collection('seller').doc(userUid).collection('products').onSnapshot((querySnapshot) => {
-        setProducts([]);
-        querySnapshot.forEach((doc) => {
-            setProducts(products => [...products, doc.data()]);
+        if (userUid) {
+            console.log('user uid', userUid)
+            firebase.firestore().collection('seller').doc(userUid).collection('products').onSnapshot((querySnapshot) => {
+                setProducts([]);
+                querySnapshot.forEach((doc) => {
+                    // Object.assign('productKey', ...doc.id)
+                    let filteredProduct = Object.assign({}, doc.data(), { productKey: doc.id });
+                    setProducts(products => [...products, filteredProduct]);
+                    console.log("hello", doc.id)
+                    console.log("products", products)
 
-            // products.push(doc.data())
-            console.log(doc.data)
-            console.log("products", products)
-
-        });
-    });
-   }
+                });
+            });
+        }
     }
 
 
@@ -60,7 +75,7 @@ const StoreProducts = (props) => {
 
 
                                 <Card.Actions >
-                                    <Button color="#08abf4" onPress={() => navigation.navigate("OrderNow") }>Buy now</Button>
+                                    <Button color="#08abf4" onPress={() => storeData(item)}>Buy now</Button>
                                 </Card.Actions>
                             </Card>
                         )

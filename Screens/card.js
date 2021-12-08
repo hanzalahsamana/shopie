@@ -15,8 +15,7 @@ const Cards = (props) => {
         <SafeAreaView style={styles.container}>
             <ScrollView>
     
-                <View >
-                    <View>
+               
                         <Card style={styles.picture}>
                             <Card.Cover style={styles.cardimage} source={require('../assets/logo.png')} />
                             <Card.Content style={styles.centre}>
@@ -26,9 +25,7 @@ const Cards = (props) => {
                                 <Button color="#08abf4" onPress={() => navigation.navigate("StoreProducts", { userUid: uid, name: name })}>Shop Now</Button>
                             </Card.Actions>
                         </Card>
-                    </View>
-
-                </View>
+                 
             </ScrollView>
         </SafeAreaView>
 
@@ -64,6 +61,8 @@ const styles = StyleSheet.create({
     picture: {
         height: "auto",
         margin: 15,
+        flexDirection: "row",
+        
     },
 
     cardimage: {
