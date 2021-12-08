@@ -5,13 +5,16 @@ import 'react-native-gesture-handler';
 import { createStackNavigator } from '@react-navigation/stack';
 import LandingPage from './Screens/LandingPage';
 import { NavigationContainer } from '@react-navigation/native';
-import SignUp from './Screens/SignUp';
+import SignUp from './Screens/SellerSignUp';
 import SignIn from './Screens/SignIn';
 import SellerDashboard from './Screens/SellerDashboard';
 import Buyer from './Screens/Buyer';
 import ShopProfile from './Screens/profileshop';
 import firebase from 'firebase';
 import StoreProducts from './Screens/storeProducts';
+import OrderNow from './Screens/OrderNow';
+import BuyerSignUp from './Screens/BuyerSignUp';
+import BuyerSignIn from './Screens/BuyerSignIn';
 
 const Stack = createStackNavigator();
 
@@ -59,7 +62,24 @@ export default function App() {
 
         />
       
-         <Stack.Screen name="ShopNow" component={Buyer} />
+         <Stack.Screen name="ShopNow" component={Buyer} 
+           options={{
+            headerShown: false
+          }}
+         />
+         <Stack.Screen name="OrderNow" component={OrderNow} />
+         <Stack.Screen name="BuyerSignUp" component={BuyerSignUp} 
+          options={{
+            headerShown: false
+          }}
+         />
+
+<Stack.Screen name="BuyerSignIn" component={BuyerSignIn} 
+          options={{
+            headerShown: false
+          }}
+         />
+
          <Stack.Screen name="StoreProducts" component={StoreProducts} />
 
       <Stack.Screen name="ShopProfile" component={ShopProfile} 

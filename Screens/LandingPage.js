@@ -1,5 +1,5 @@
 import React from "react";
-import { ImageBackground, StyleSheet, Text, View, Image  } from "react-native";
+import { ImageBackground, StyleSheet, Text, View, Image } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useEffect } from "react";
 import firebase from "firebase";
@@ -8,69 +8,75 @@ import { useNavigation } from '@react-navigation/native';
 
 function LandingPage() {
 
-    const CheckUser = () => {
-        firebase.auth().onAuthStateChanged((user) => {
-            console.log('awdaerwqr',user)
-            if (user) {
-                navigation.navigate("SellerDashboard")
-      
+    // const CheckUser = () => {
+    //     firebase.auth().onAuthStateChanged((user) => {
+    //         console.log('awdaerwqr', user)
+    //         if (user) {
 
-              // ...
-            } else {
-      
-              // User is signed out
-              // ...
-            }
-          });
-    }
-    useEffect(() => {
-        CheckUser()
-      },[]);
-      
- 
+    //             firebase.firestore().collection('sellers').doc(user.uid).onSnapshot((querySnapshot) => {
+    //                 navigation.navigate("SellerDashboard")
 
-        
+    //             })
+    //             firebase.firestore().collection('buyer').doc(user.uid).onSnapshot((querySnapshot) => {
+    //                 navigation.navigate("ShopNow")
+
+    //             })
+    //             // ...
+    //         } else {
+
+    //             // User is signed out
+    //             // ...
+    //         }
+    //     });
+    // }
+    // useEffect(() => {
+    //     CheckUser()
+    // }, []);
+
+
+
+
     const navigation = useNavigation();
 
-    return(
+    return (
         <ImageBackground source={require('../assets/landing.jpg')} resizeMode="cover" style={styles.image}>
 
-        <View style={styles.container}>
+            <View style={styles.container}>
 
-        <View style={styles.ImageContainer}>
-                <Image
-                    style={styles.LogoImage}
-                    source={require('../assets/logo.png')}
-                    resizeMode="contain"
-                />
+                <View style={styles.ImageContainer}>
+                    <Image
+                        style={styles.LogoImage}
+                        source={require('../assets/logo.png')}
+                        resizeMode="contain"
+                    />
+                </View>
+
+                <Text style={styles.heading}>Welcome to Shopie!</Text>
+
+                <Text style={styles.text}>Order your fav items</Text>
+
+                <View style={styles.btnContainer}>
+
+                    <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate("SignUp")}>
+                        <Text style={styles.btnText}>
+                            Sell
+                        </Text>
+                    </TouchableOpacity>
+
+
+                    <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate("BuyerSignUp")}>
+                        <Text style={styles.btnText}>
+                            Buy
+                        </Text>
+                    </TouchableOpacity>
+
+                </View>
+
             </View>
-
-            <Text style={styles.heading}>Welcome to Shopie!</Text>
-
-            <Text style={styles.text}>Order your fav items</Text>
-
-            <View style={styles.btnContainer}>
-               
-                <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate("SignUp") }>
-                    <Text style={styles.btnText}>
-                        Sell
-                    </Text>
-                </TouchableOpacity>
-
-
-                <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate("ShopNow") } >
-                    <Text style={styles.btnText}>
-                        Buy
-                    </Text>
-                </TouchableOpacity>
-
-            </View>
-
-        </View>
-    </ImageBackground>
+        </ImageBackground>
     )
 }
-    
+
 
 const styles = StyleSheet.create({
     container: {
@@ -81,16 +87,16 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         width: "100%",
     },
-    ImageContainer:{
+    ImageContainer: {
         height: 70,
-        width:"100%"
-        
+        width: "100%"
+
     },
-    LogoImage:{
-        height:"100%",
-        width:"100%",
+    LogoImage: {
+        height: "100%",
+        width: "100%",
         borderRadius: 20
-        
+
     },
     heading: {
         color: "white",

@@ -9,11 +9,14 @@ import { useState } from 'react';
 import firebase from "firebase"
 
 
-export default function SignUp() {
+export default function BuyerSignUp() {
 
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
+    const [country, setCountry] = useState('');
+    const [city, setCity] = useState('');
+    
     const register = (e) => {
 
         console.log('email', email)
@@ -23,8 +26,8 @@ export default function SignUp() {
             .then((userCredential) => {
                 // Signed in 
                 var user = userCredential.user;
-                alert("Auth done")
-                 navigation.navigate("SellerDashboard")
+                alert("Congratulation you have suucessfully login as buyer!")
+                 navigation.navigate("ShopNow")
                 console.log("auth done")
 
                 user.updateProfile({
@@ -37,12 +40,13 @@ export default function SignUp() {
                   }).catch((error) => {
                     // An error occurred
                 console.log("error"  ,  error)
+                alert("error" , error)
 
                     // ...
                   });
 
 
-                firebase.firestore().collection(`users`).doc(user.uid).set({
+                firebase.firestore().collection(`buyer`).doc(user.uid).set({
                     name,
                     email,
                     userUID: user.uid
@@ -51,18 +55,21 @@ export default function SignUp() {
                         console.log("Document successfully written!");
                     })
                     .catch((error) => {
-                        console.error("Error writing document: ", error);
+                        alert("Error writing document: ", error.message);
                     });
 
             }).catch((error) => {
                 var errorCode = error.code;
                 var errorMessage = error.message;
+                alert("error" , errorMessage)
                 // ..
             });
 
 
             setEmail('');
             setName('');
+            setCountry('');
+            setCity('')
             setPassword('')
         e.preventDefault();
     }
@@ -129,6 +136,46 @@ export default function SignUp() {
                         <View style={styles.feilds}>
                             <Input
                                 style={styles.input}
+                                placeholder='ENTER YOUR COUNTRY '
+                                value={country}
+                                onChangeText={(text)=> setCountry(text)}
+                
+                                leftIcon={
+                                    <Icon
+                                        style={styles.icon}
+
+                                        name='flag'
+                                        size={16}
+                                        color='#08abf4'
+                                    />
+
+                                }
+
+                            />
+                        </View>
+                        <View style={styles.feilds}>
+                            <Input
+                                style={styles.input}
+                                placeholder='ENTER YOUR CITY '
+                                value={city}
+                                onChangeText={(text)=> setCity(text)}
+                
+                                leftIcon={
+                                    <Icon
+                                        style={styles.icon}
+
+                                        name='flag'
+                                        size={16}
+                                        color='#08abf4'
+                                    />
+
+                                }
+
+                            />
+                        </View>
+                        <View style={styles.feilds}>
+                            <Input
+                                style={styles.input}
                                 placeholder='ENTER YOUR PASSWORD'
                                 value={password}
                                 onChangeText={(text)=> setPassword(text)}
@@ -162,7 +209,7 @@ export default function SignUp() {
 
                     <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'center', minHeight: 40, height: 40 }}>
                         <Text style={styles.redirect}>Already have an account?</Text>
-                        <Pressable style={{ height: '100%', justifyContent: 'center', marginLeft: 5 }} onPress={() => navigation.navigate("SignIn")}>
+                        <Pressable style={{ height: '100%', justifyContent: 'center', marginLeft: 5 }} onPress={() => navigation.navigate("BuyerSignIn")}>
                         
                             <Text style={styles.redirectLink}>Sign In</Text>
                         </Pressable>
@@ -184,7 +231,7 @@ const styles = StyleSheet.create({
     },
     signupContainer: {
         // backgroundColor: 'black',
-        height: Dimensions.get('window').height / 1,
+        height: Dimensions.get('window').height / 0.9,
         justifyContent: 'center'
     },
     ImageContainer: {

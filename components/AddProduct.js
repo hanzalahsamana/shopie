@@ -94,7 +94,9 @@ export default function AddProduct() {
     // storage = firebase.storage();
 
     const Products = async (e) => {
-
+        if (title === " " || details === " " || price === " " || price === "" || image === "") {
+            Alert.alert("Error", "please fill all the feild")
+        } else {
         // console.log('title', title)
         // console.log('details', details)
         console.log("image 234", image)
@@ -111,7 +113,8 @@ export default function AddProduct() {
 
                 snap.ref.getDownloadURL().then((url) => {
                     console.log('url', url)
-                    firebase.firestore().collection('users').doc(uid).collection('products').add({
+
+                    firebase.firestore().collection('seller').doc(uid).collection('products').add({
                         title,
                         details,
                         price,
@@ -120,7 +123,7 @@ export default function AddProduct() {
                     })
                         .then(() => {
                             console.log("Document successfully written!");
-                            alert("Product add")
+                            alert("Product added succesfully!!")
                         })
                         .catch((error) => {
                             console.error("Error writing document: ", error);
@@ -133,6 +136,7 @@ export default function AddProduct() {
         setTitle('');
         setDetails('');
         setPrice('')
+        }
 
     }
     const navigation = useNavigation();

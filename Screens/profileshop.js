@@ -37,7 +37,7 @@ const ShopProfile = () => {
 
     const getDate = (uid) => {
         console.log('user uid', uid)
-          firebase.firestore().collection('users').doc(uid).collection('products').onSnapshot((querySnapshot) => {
+          firebase.firestore().collection('seller').doc(uid).collection('products').onSnapshot((querySnapshot) => {
                  setProducts([]);
                 querySnapshot.forEach((doc) => {
                     setProducts(products => [...products, doc.data()]);
@@ -89,7 +89,7 @@ const ShopProfile = () => {
                                     <Card.Content >
                                         <View style={styles.TitleContainer}>
                                             <Title style={styles.title}>{item.title}</Title>
-                                            <Paragraph style={styles.price}>${item.Price}</Paragraph>
+                                            <Paragraph style={styles.price}>${item.price}</Paragraph>
                                         </View>
                                         <Paragraph style={styles.description}>{item.details}</Paragraph>
                                     </Card.Content>
