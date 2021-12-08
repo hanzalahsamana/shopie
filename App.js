@@ -15,7 +15,7 @@ import StoreProducts from './Screens/storeProducts';
 import OrderNow from './Screens/OrderNow';
 import BuyerSignUp from './Screens/BuyerSignUp';
 import BuyerSignIn from './Screens/BuyerSignIn';
-
+  
 const Stack = createStackNavigator();
 
 const firebaseConfig = {
@@ -55,38 +55,38 @@ export default function App() {
           }}
 
         />
-   <Stack.Screen name="SellerDashboard" component={SellerDashboard}
+        <Stack.Screen name="SellerDashboard" component={SellerDashboard}
           options={{
             headerShown: false
           }}
 
         />
-      
-         <Stack.Screen name="ShopNow" component={Buyer} 
-           options={{
-            headerShown: false
-          }}
-         />
-         <Stack.Screen name="OrderNow" component={OrderNow} />
-         <Stack.Screen name="BuyerSignUp" component={BuyerSignUp} 
+
+<Stack.Screen name="ShopNow" component={Buyer}
           options={{
             headerShown: false
           }}
-         />
-
-<Stack.Screen name="BuyerSignIn" component={BuyerSignIn} 
+        />
+        <Stack.Screen name="OrderNow" component={OrderNow} />
+        <Stack.Screen name="BuyerSignUp" component={BuyerSignUp}
           options={{
             headerShown: false
           }}
-         />
+        />
+        <Stack.Screen name="BuyerSignIn" component={BuyerSignIn}
+          options={{
+            headerShown: false
+          }}
+        />
 
-         <Stack.Screen name="StoreProducts" component={StoreProducts} />
+          <Stack.Screen name="StoreProducts" component={StoreProducts} />
 
-      <Stack.Screen name="ShopProfile" component={ShopProfile} 
-       options={{
-        headerShown: false
-      }}
-      />
+
+        <Stack.Screen name="ShopProfile" component={ShopProfile}
+          options={{
+            headerShown: false
+          }}
+        />
 
       </Stack.Navigator>
     </NavigationContainer>

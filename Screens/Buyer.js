@@ -3,7 +3,7 @@ import Cards from './card';
 import firebase from 'firebase';
 import {  Button } from 'react-native-paper';
 
-import { View, StyleSheet , Text  ,  SafeAreaView ,BackHandler} from 'react-native';
+import { View, StyleSheet , Text  ,  SafeAreaView ,BackHandler, ScrollView} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const Buyer = () => {
@@ -51,7 +51,8 @@ const Buyer = () => {
 
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView >
+            <ScrollView>
                             <View style={styles.header}>
                     <Text style={styles.text}>Shop Now</Text>
 
@@ -76,6 +77,7 @@ const Buyer = () => {
                     })
                 }
             </View>
+            </ScrollView>
         </SafeAreaView >
 
 
@@ -85,6 +87,7 @@ const Buyer = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        flexWrap:"wrap"
 
     },
     header: {
@@ -103,10 +106,10 @@ const styles = StyleSheet.create({
 
     },
     Cardcontainer : {
-        // height: 500
         flex: 1,
         flexDirection: 'row',
-
+        flexWrap: "wrap",
+        height: "100%"
     }
 
 });
